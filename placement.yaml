@@ -1,0 +1,29 @@
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-policy-certificatepolicy
+  namespace: default
+placementRef:
+  name: placement-policy-certificatepolicy
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+  - name: policy-certificatepolicy--us-east1
+    kind: Policy
+    apiGroup: policy.open-cluster-management.io
+  - name: policy-certificatepolicy--us-west1
+    kind: Policy
+    apiGroup: policy.open-cluster-management.io
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: placement-policy-certificatepolicy
+  namespace: default
+spec:
+  clusterConditions:
+    - status: 'True'
+      type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions: []
