@@ -121,7 +121,6 @@ func (r *PolicyReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctr
 				return ctrl.Result{}, err
 			}
 		}
-
 	} else {
 		rootPolicyName := labels[ownedByLabel]
 		// A leaf policy was updated; get others and aggregate status.
@@ -197,8 +196,7 @@ func (r *PolicyReconciler) createLeafs(ctx context.Context, root *policiesv1.Pol
 		if root.Labels == nil {
 			root.Labels = map[string]string{}
 		}
-		fmt.Printf("izhang >>>>>>>>>>>>>>>>> aaaaaaa\n%#v\n", cls.Items[0].GetName())
-		// TODO: munge cluster name
+
 		root.Labels[clusterLabel] = cls.Items[0].GetName()
 
 		if !equality.Semantic.DeepEqual(previous, root) {
